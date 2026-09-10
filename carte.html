@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connecteo — Carte</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/png" href="icone.png ">
+</head>
+
+<body class="no-pad">
+
+  <header>
+    <div class="container1">
+      <div class="contained" id="logo_name">
+        <div class="mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.6">
+            <circle cx="12" cy="12" r="2.4" />
+            <circle cx="12" cy="4" r="1.6" />
+            <circle cx="19.5" cy="8" r="1.6" />
+            <circle cx="19.5" cy="16" r="1.6" />
+            <circle cx="12" cy="20" r="1.6" />
+            <circle cx="4.5" cy="16" r="1.6" />
+            <circle cx="4.5" cy="8" r="1.6" />
+            <path d="M12 9.6V5.6M14.1 10.6l4-2.3M14.1 13.4l4 2.3M12 14.4v4M9.9 13.4l-4 2.3M9.9 10.6l-4-2.3" />
+          </svg>
+        </div>
+        <div class="logo">Connecteo</div>
+      </div>
+      <div class="contained" id="navigation">
+        <a href="carte.html"  class="active">Carte</a>
+        <a href="reseaux.html">Réseaux</a>
+        <a href="messages.html">Messages</a>
+        <div class="droite">
+          <a href="notification.html" class="notif-bell">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
+              <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+            </svg>
+            <span class="notif-badge">3</span>
+          </a>
+          <div class="profile-menu">
+            <button class="profile-bubble" id="profileToggle">MR</button>
+            <div class="profile-dropdown" id="profileDropdown">
+              <a href="profil.html">Profil</a>
+              <a href="parametres.html">Paramètres</a>
+              <hr>
+              <a href="#" class="logout">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                  <polyline points="16 17 21 12 16 7" />
+                  <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+                Déconnexion
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="map-page">
+    <div class="map-top">
+      <div class="coord-pill" id="coord-pill">—</div>
+    </div>
+    <div id="map"></div>
+    <div class="map-search">
+      <p>Rechercher une région, district, commune ou fokontany</p>
+      <div class="map-search-row">
+        <input type="text" id="recherche-lieu" placeholder="Ex: Analamanga, Antananarivo...">
+        <button onclick="rechercherLieu()">Chercher</button>
+      </div>
+      <div class="map-search-results" id="resultats-lieu"></div>
+    </div>
+  </main>
+
+  <script src="js/supabase-client.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    var URL_API_RESEAU = "http://localhost:5000/api/reseau";
+
+    function afficherCoordonnees(carte) {
+      var centre = carte.getCenter();
+      document.getElementById('coord-pill').textContent = centre.lat.toFixed(4) + ', ' + centre.lng.toFixed(4);
+    }
+
+    function ajouterMarqueurContact(groupe, contact) {
+      var html = "<div style='background:#1a3d27;color:#fff;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;border:2px solid #fff;'>" + contact.initiales + "</div>";
+      var icone = L.divIcon({className: '', html: html, iconSize: [34, 34]});
+      L.marker([contact.lat, contact.lng], {icon: icone}).addTo(groupe).bindPopup(contact.nom);
+    }
+
+    function chargerContacts(groupe) {
+      var contactsAcceptes = DEMO_DATA.contacts.filter(function (c) {return c.statut === 'accepted';});
+      contactsAcceptes.forEach(function (c) {ajouterMarqueurContact(groupe, c);});
+    }
+
+    function construireTooltipReseau(noeud) {
+      return "<div><strong>📍 " + noeud.nom + "</strong><br/>Code : <b>" + noeud.code + "</b><br/>Statut : " + noeud.statut + "</div>";
+    }
+
+    function dessinerLiaison(groupe, liaison) {
+      L.polyline([[liaison.lat1, liaison.lon1], [liaison.lat2, liaison.lon2]], {color: "#1a3d27", weight: 1.5, opacity: 0.7}).addTo(groupe);
+    }
+
+    function dessinerNoeud(groupe, noeud) {
+      L.circleMarker([noeud.lat, noeud.lon], {radius: 5, color: "#ffffff", weight: 2, fill: true, fillColor: "#1a3d27", fillOpacity: 1.0})
+        .bindTooltip(construireTooltipReseau(noeud), {sticky: true}).addTo(groupe);
+    }
+
+    function chargerReseau(groupe) {
+      fetch(URL_API_RESEAU)
+        .then(function (r) {return r.json();})
+        .then(function (donnees) {
+          donnees.liaisons.forEach(function (l) {dessinerLiaison(groupe, l);});
+          donnees.noeuds.forEach(function (n) {dessinerNoeud(groupe, n);});
+        })
+        .catch(function () {console.log("Infrastructure reseau indisponible : verifiez que api_reseau.py tourne sur localhost:5000");});
+    }
+
+    var URL_API_LIEUX = "http://localhost:5000/api/lieux"; // à adapter selon ton API réelle
+
+    function rechercherLieu() {
+      var requete = document.getElementById('recherche-lieu').value.trim();
+      var conteneurResultats = document.getElementById('resultats-lieu');
+
+      conteneurResultats.innerHTML = "";
+      if (requete.length < 2) return;
+
+      fetch(URL_API_LIEUX + "?q=" + encodeURIComponent(requete))
+        .then(function (r) {return r.json();})
+        .then(function (lieux) {
+          lieux.forEach(function (lieu) {
+            var item = document.createElement('div');
+            item.textContent = lieu.nom + " (" + lieu.type + ")"; // ex: "Analamanga (région)"
+            item.onclick = function () {
+              carte.setView([lieu.lat, lieu.lon], zoomSelonType(lieu.type));
+              conteneurResultats.innerHTML = "";
+            };
+            conteneurResultats.appendChild(item);
+          });
+        })
+        .catch(function () {
+          conteneurResultats.innerHTML = "<div>Recherche indisponible pour l'instant</div>";
+        });
+    }
+
+    function zoomSelonType(type) {
+      if (type === "region") return 8;
+      if (type === "district") return 10;
+      if (type === "commune") return 12;
+      return 14; // fokontany
+    }
+    var carte = L.map('map').setView([-19.0, 46.9], 5);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors', maxZoom: 19
+    }).addTo(carte);
+    afficherCoordonnees(carte);
+    carte.on('move', function () {afficherCoordonnees(carte);});
+
+    var groupeContacts = L.layerGroup().addTo(carte);
+    var groupeReseau = L.layerGroup().addTo(carte);
+    chargerContacts(groupeContacts);
+    chargerReseau(groupeReseau);
+  </script>
+
+  <script src="js/supabase-client.js"></script>
+  <script src="js/auth-status.js"></script>
+  <script src="js/profile-menu.js"></script>
+</body>
+
+</html>

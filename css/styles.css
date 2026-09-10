@@ -1,0 +1,941 @@
+/* ==========================================================================
+   VARIABLES
+   ========================================================================== */
+:root {
+  --green-900: #10261a;
+  --green-800: #1a3d27;
+  --green-700: #2e6b46;
+  --green-400: #7fa78c;
+  --paper: #f4f1ea;
+  --paper-2: #eae5d8;
+  --ink: #1b2430;
+  --ink-muted: #697180;
+  --amber: #d98a3d;
+  --line: rgba(18, 35, 64, 0.10);
+  --danger: #b5432f;
+}
+
+/* ==========================================================================
+   RESET / BASE
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #dcd6c8;
+  font-family: 'Inter', sans-serif;
+  color: var(--ink);
+  padding: 48px 24px;
+}
+
+body.no-pad {
+  padding: 0;
+}
+
+/* ==========================================================================
+   LOGIN / INSCRIPTION
+   ========================================================================== */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--paper);
+  border-radius: 20px;
+  padding: 16px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 20px 40px rgba(11, 22, 38, 0.12);
+}
+
+.mark {
+  width: 68px;
+  height: 68px;
+  border-radius: 18px;
+  background: var(--green-800);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mark svg {
+  width: 34px;
+  height: 34px;
+}
+
+.brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  color: var(--green-900);
+  text-align: center;
+}
+
+.brand span {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--ink-muted);
+  margin-top: 4px;
+}
+
+.field {
+  width: 100%;
+}
+
+.field label {
+  display: block;
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-bottom: 6px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  height: 48px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: #ffffff;
+  padding: 0 14px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  color: var(--ink);
+}
+
+.field+.field {
+  margin-top: 12px;
+}
+
+.btn-primary {
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  background: var(--green-800);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  border: none;
+  margin-top: 12px;
+}
+
+.link-muted {
+  font-size: 12px;
+  color: var(--ink-muted);
+  text-align: center;
+}
+
+.link-muted b {
+  color: var(--green-800);
+  font-weight: 600;
+}
+
+.link-muted a {
+  color: var(--green-800);
+  text-decoration: none;
+}
+
+.form-error {
+  color: #e05252;
+  font-size: 0.85rem;
+  margin: -4px 0 8px;
+}
+
+/* Floating label (formulaires) */
+.input_groups {
+  position: relative;
+  margin: 20px 0;
+  width: 300px;
+}
+
+.input_groups input {
+  width: 100%;
+  padding: 22px 14px 8px 14px;
+  font-size: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.input_groups input:focus {
+  border-color: #1a3d27;
+}
+
+.input_groups label {
+  position: absolute;
+  left: 10px;
+  top: 12px;
+  font-size: 15px;
+  color: #999;
+  pointer-events: none;
+  transition: all 0.15s ease;
+}
+
+.input_groups input:focus+label,
+.input_groups input:not(:placeholder-shown)+label {
+  top: 6px;
+  font-size: 12px;
+  color: #888;
+}
+
+/* ==========================================================================
+   HEADER / NAVIGATION (toutes les pages connectées)
+   ========================================================================== */
+header {
+  flex: 0 0 auto;
+  width: 100%;
+  background: var(--paper);
+}
+
+.container1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px 40px;
+}
+
+.contained {
+  display: flex;
+  align-items: center;
+}
+
+#logo_name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* --- Liens de nav --- */
+#navigation {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  /* valeur unique retenue (tu avais 50px puis 32px en double, j'ai gardé 32px) */
+}
+
+#navigation a:not(.notif-bell) {
+  position: relative;
+  text-decoration: none;
+  color: var(--ink-muted);
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.25s ease;
+}
+
+#navigation a:not(.notif-bell)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background: var(--green-800);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+#navigation a:not(.notif-bell):hover {
+  color: var(--green-800);
+}
+#navigation a:not(.notif-bell):hover::after {
+  transform: scaleX(1);
+}
+
+#navigation a:not(.notif-bell).active {
+  color: var(--green-800);
+  font-weight: 600;
+}
+#navigation a:not(.notif-bell).active::after {
+  transform: scaleX(1);
+}
+
+#navigation a.active {
+  color: var(--green-800);
+  font-weight: 600;
+}
+
+#navigation a.active::after {
+  transform: scaleX(1);
+}
+
+@media (max-width: 768px) {
+  #navigation {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  #navigation a {
+    font-size: 13px;
+  }
+}
+
+/* --- Cloche de notification --- */
+.notif-bell {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--ink-muted);
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.notif-bell:hover {
+  background: var(--paper-2);
+  color: var(--green-800);
+}
+
+.notif-bell svg {
+  width: 16px;
+  height: 16px;
+}
+
+.notif-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 3px;
+  border-radius: 50%;
+  background: var(--danger);
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  border: 2px solid var(--paper);
+}
+
+/* --- Menu profil déroulant --- */
+  .profile-menu {
+    position: relative;
+    margin-left: 12px;
+  }
+
+  .profile-bubble {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--green-800);
+    color: #ffffff;
+    border: none;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Space Grotesk', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .profile-bubble:hover {
+    background: var(--green-700);
+  }
+
+.profile-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  background: var(--paper);
+  border-radius: 14px;
+  box-shadow: 0 12px 32px rgba(11, 22, 38, 0.18);
+  min-width: 200px;
+  padding: 10px;
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 100;
+}
+
+.profile-dropdown.open {
+  display: flex;
+}
+
+.profile-dropdown a {
+  padding: 11px 14px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  color: var(--ink);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-dropdown a:hover {
+  background: var(--paper-2);
+}
+
+.profile-dropdown a svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+
+.profile-dropdown hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 4px 0;
+}
+
+#navigation .profile-dropdown a.logout {
+  color: var(--danger);
+}
+
+.profile-dropdown a.logout:hover {
+  background: rgba(181, 67, 47, 0.08);
+}
+
+.right {
+  display: flex;
+  white-space: 2em;
+  align-items: center;
+  justify-content: center;
+  gap: 2.3em;
+}
+
+.gauche {
+  display: flex;
+  gap: 1.8em;
+}
+
+.droite {
+  display: flex;
+  gap: 0.8em;
+}/* ==========================================================================
+   PAGES GÉNÉRIQUES (structure commune Messages / Réseaux / etc.)
+   ========================================================================== */
+.page-content {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.page-header {
+  padding: 6px 0 14px;
+}
+
+.page-header h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--green-900);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ==========================================================================
+   RÉSEAUX
+   ========================================================================== */
+.stats-row {
+  display: flex;
+  gap: 10px;
+  padding-bottom: 14px;
+}
+
+.stat-card {
+  flex: 1;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.stat-card .num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--green-900);
+}
+
+.stat-card .lbl {
+  font-size: 10px;
+  color: var(--ink-muted);
+  margin-top: 2px;
+}
+
+.node-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 11px 12px;
+}
+
+.node-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: var(--paper-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.node-icon svg {
+  width: 16px;
+  height: 16px;
+  color: var(--green-800);
+}
+
+.node-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.node-info .name {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.node-info .sub {
+  font-size: 10.5px;
+  color: var(--ink-muted);
+  margin-top: 2px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+
+.status-dot.on {
+  background: #4a8a5f;
+}
+
+.status-dot.off {
+  background: #c7c2b4;
+}
+
+/* ==========================================================================
+   MESSAGES
+   ========================================================================== */
+/* --- Élément de liste (utilisé aussi dans le panneau de conversation) --- */
+.msg-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--green-800);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  flex: 0 0 auto;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.msg-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.msg-info .top-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.msg-info .name {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.msg-info .time {
+  font-size: 10px;
+  color: var(--ink-muted);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.msg-info .preview {
+  font-size: 11px;
+  color: var(--ink-muted);
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.unread {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--amber);
+  flex: 0 0 auto;
+}
+
+/* --- Layout messagerie (2 colonnes) --- */
+#body_message {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.messenger {
+  flex: 1;
+  display: flex;
+  padding: 24px;
+  gap: 20px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.conversations-panel {
+  width: 340px;
+  flex: 0 0 auto;
+  background: var(--paper);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(11, 22, 38, 0.08);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-header {
+  padding: 20px 20px 12px;
+}
+
+.panel-header h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--green-900);
+}
+
+.conv-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 12px 12px;
+}
+
+.conv-list .msg-row {
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.conv-list .msg-row:hover {
+  background: var(--paper-2);
+}
+
+.conv-list .msg-row.active {
+  background: var(--paper-2);
+}
+
+.chat-panel {
+  flex: 1;
+  background: var(--paper);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(11, 22, 38, 0.08);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.chat-header .name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.chat-header .status {
+  font-size: 11px;
+  color: var(--ink-muted);
+  margin-top: 2px;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bubble {
+  max-width: 55%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.bubble.received {
+  align-self: flex-start;
+  background: var(--paper-2);
+  color: var(--ink);
+  border-bottom-left-radius: 4px;
+}
+
+.bubble.sent {
+  align-self: flex-end;
+  background: var(--green-800);
+  color: #ffffff;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-input {
+  display: flex;
+  gap: 10px;
+  padding: 16px 20px;
+  border-top: 1px solid var(--line);
+}
+
+.chat-input input {
+  flex: 1;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: #ffffff;
+  padding: 0 14px;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  color: var(--ink);
+  outline: none;
+}
+
+.chat-input button {
+  padding: 0 20px;
+  border-radius: 10px;
+  background: var(--green-800);
+  color: #ffffff;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   PARAMÈTRES
+   ========================================================================== */
+.profile-card {
+  margin: 6px 0 16px;
+  background: var(--green-800);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profile-card .avatar {
+  background: var(--green-700);
+}
+
+.profile-card .name {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.profile-card .sub {
+  color: #a9c9b3;
+  font-size: 10.5px;
+  margin-top: 2px;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 4px;
+  border-bottom: 1px solid var(--line);
+}
+
+.settings-row svg {
+  width: 17px;
+  height: 17px;
+  color: var(--green-800);
+  flex: 0 0 auto;
+}
+
+.settings-row span {
+  font-size: 13px;
+  color: var(--ink);
+  flex: 1;
+}
+
+.settings-row.danger span {
+  color: var(--danger);
+}
+
+.settings-row.danger svg {
+  color: var(--danger);
+}
+
+/* ==========================================================================
+   CARTE
+   ========================================================================== */
+.map-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px 40px;
+  position: relative;
+}
+
+.map-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0 16px;
+}
+
+.coord-pill {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 8px 14px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--green-800);
+}
+
+#map {
+  width: 100%;
+  height: 600px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.map-search {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 24px;
+  max-width: 400px;
+  margin: 0 auto;
+  background: var(--green-800);
+  border-radius: 16px;
+  padding: 16px;
+  z-index: 1000;
+}
+
+.map-search p {
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.map-search-row {
+  display: flex;
+  gap: 8px;
+}
+
+.map-search input {
+  flex: 1;
+  height: 38px;
+  border-radius: 9px;
+  border: 1px solid var(--green-700);
+  background: var(--green-900);
+  color: #ffffff;
+  padding: 0 12px;
+  font-size: 12px;
+  font-family: 'Inter', sans-serif;
+}
+
+.map-search button {
+  height: 38px;
+  padding: 0 16px;
+  border-radius: 9px;
+  background: var(--green-700);
+  color: #ffffff;
+  border: none;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.map-search-results {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.map-search-results div {
+  background: var(--green-900);
+  color: #dff0e3;
+  font-size: 12px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.map-search-results div:hover {
+  background: var(--green-700);
+}
+
+/* ==========================================================================
+   DIVERS
+   ========================================================================== */
+.auth-status {
+  font-size: 12px;
+  color: var(--green-800);
+  text-decoration: none;
+  font-weight: 600;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 7px 16px;
+}
+
+.auth-status:hover {
+  background: var(--paper-2);
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Connecteo — Créer un compte</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/png" href="icone.png ">
+</head>
+
+<body class="no-pad">
+
+  <main class="login-page">
+    <div class="login-card">
+      <div class="mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.6">
+          <circle cx="12" cy="12" r="2.4" />
+          <circle cx="12" cy="4" r="1.6" />
+          <circle cx="19.5" cy="8" r="1.6" />
+          <circle cx="19.5" cy="16" r="1.6" />
+          <circle cx="12" cy="20" r="1.6" />
+          <circle cx="4.5" cy="16" r="1.6" />
+          <circle cx="4.5" cy="8" r="1.6" />
+          <path d="M12 9.6V5.6M14.1 10.6l4-2.3M14.1 13.4l4 2.3M12 14.4v4M9.9 13.4l-4 2.3M9.9 10.6l-4-2.3" />
+        </svg>
+      </div>
+      <div class="brand">Créer un compte<span>Rejoignez le réseau Connecteo</span></div>
+      <form id="register-form" novalidate>
+        <div class="field input_groups">
+          <input type="text" id="fullname" name="fullname" placeholder=" " required>
+          <label for="fullname">Nom complet</label>
+        </div>
+        <div class="field input_groups">
+          <input type="email" id="email" name="email" placeholder=" " required>
+          <label for="email">E-mail</label>
+        </div>
+        <div class="field input_groups">
+          <input type="password" id="password" name="password" placeholder=" " required>
+          <label for="password">Mot de passe</label>
+        </div>
+        <div class="field input_groups">
+          <input type="password" id="password2" name="password2" placeholder=" " required>
+          <label for="password2">Confirmer le mot de passe</label>
+        </div>
+        <p id="register-error" class="form-error" hidden></p>
+        <button type="submit" class="btn-primary">Créer mon compte</button>
+      </form>
+      <div class="link-muted">Déjà inscrit ? <a href="index.html"><b>Se connecter</b></a></div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/authentification.js"></script>
+</body>
+
+</html>

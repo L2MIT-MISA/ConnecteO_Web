@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Connecteo — Messages</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/png" href="icone.png ">
+</head>
+
+<body class="no-pad" id="body_message">
+
+  <header>
+    <div class="container1">
+      <div class="contained" id="logo_name">
+        <div class="mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.6">
+            <circle cx="12" cy="12" r="2.4" />
+            <circle cx="12" cy="4" r="1.6" />
+            <circle cx="19.5" cy="8" r="1.6" />
+            <circle cx="19.5" cy="16" r="1.6" />
+            <circle cx="12" cy="20" r="1.6" />
+            <circle cx="4.5" cy="16" r="1.6" />
+            <circle cx="4.5" cy="8" r="1.6" />
+            <path d="M12 9.6V5.6M14.1 10.6l4-2.3M14.1 13.4l4 2.3M12 14.4v4M9.9 13.4l-4 2.3M9.9 10.6l-4-2.3" />
+          </svg>
+        </div>
+        <div class="logo">Connecteo</div>
+      </div>
+      <div class="contained" id="navigation">
+        <a href="carte.html">Carte</a>
+        <a href="reseaux.html">Réseaux</a>
+        <a href="messages.html" class="active">Messages</a>
+        <div class="droite">
+          <a href="notification.html" class="notif-bell">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
+              <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+            </svg>
+            <span class="notif-badge">3</span>
+          </a>
+          <div class="profile-menu">
+            <button class="profile-bubble" id="profileToggle">MR</button>
+            <div class="profile-dropdown" id="profileDropdown">
+              <a href="profil.html">Profil</a>
+              <a href="parametres.html">Paramètres</a>
+              <hr>
+              <a href="#" class="logout">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                  <polyline points="16 17 21 12 16 7" />
+                  <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+                Déconnexion
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="messenger">
+    <!-- Colonne 1 : liste des discussions -->
+    <aside class="conversations-panel">
+      <div class="panel-header">
+        <h2>Messages</h2>
+      </div>
+      <div class="conv-list">
+        <div class="msg-row active">
+          <div class="avatar">RA</div>
+          <div class="msg-info">
+            <div class="top-line">
+              <span class="name">R. Andria</span>
+              <span class="time">09:41</span>
+            </div>
+            <div class="preview">Je suis au relais nord, tout va bien</div>
+          </div>
+          <span class="unread"></span>
+        </div>
+        <div class="msg-row">
+          <div class="avatar">HR</div>
+          <div class="msg-info">
+            <div class="top-line">
+              <span class="name">H. Rasoa</span>
+              <span class="time">08:12</span>
+            </div>
+            <div class="preview">Message transmis via relais</div>
+          </div>
+        </div>
+        <div class="msg-row">
+          <div class="avatar">PN</div>
+          <div class="msg-info">
+            <div class="top-line">
+              <span class="name">Pylône Nord</span>
+              <span class="time">Hier</span>
+            </div>
+            <div class="preview">Connexion rétablie avec le réseau</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Colonne 2 : conversation active -->
+    <section class="chat-panel">
+      <div class="chat-header">
+        <div class="avatar">RA</div>
+        <div>
+          <div class="name">R. Andria</div>
+          <div class="status">En ligne il y a 1 h</div>
+        </div>
+      </div>
+
+      <div class="chat-messages">
+        <div class="bubble received">Salut, tout va bien de ton côté ?</div>
+        <div class="bubble sent">Oui, je suis au relais nord, tout va bien</div>
+      </div>
+
+      <div class="chat-input">
+        <input type="text" placeholder="Écrire un message...">
+        <button>Envoyer</button>
+      </div>
+    </section>
+  </main>
+  <script src="js/profile-menu.js"></script>
+</body>
+
+</html>

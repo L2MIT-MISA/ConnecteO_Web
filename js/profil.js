@@ -18,21 +18,27 @@ async function chargerProfil() {
         return;
     }
 
-    document.getElementById('profile-name').textContent = profil.full_name;
-    document.getElementById('profile-email').textContent = profil.email;
-
     const initiales = profil.full_name
         .split(' ')
         .map(mot => mot[0])
         .join('')
         .toUpperCase();
     
-    document.getElementById('profile-avatar').textContent = initiales;
-
     const bulle = document.getElementById('profileToggle');
     if (bulle) {
-    bulle.textContent = initiales;
+        console.log(bulle);
+        bulle.textContent = initiales;
     }
+
+    document.getElementById('profile-avatar').textContent = initiales;
+    document.getElementById('profile-name').textContent = profil.full_name;
+    document.getElementById('profile-email').textContent = profil.email;
+
+
+    document.getElementById('value-name').value = profil.full_name;
+    document.getElementById('value-email').value = profil.email;
+    document.getElementById('value-tel').value = profil.phoneNumber;
+    
 }
 
 chargerProfil();

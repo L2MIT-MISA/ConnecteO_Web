@@ -74,9 +74,9 @@
     <!-- Colonne gauche : résumé + navigation interne -->
     <aside class="account-sidebar">
       <div class="account-summary">
-        <div class="avatar avatar-lg">MR</div>
-        <div class="name">M. Rakoto</div>
-        <div class="sub">m.rakoto@email.com</div>
+        <div class="avatar avatar-lg" id="profile-avatar">MR</div>
+        <div class="name" id="profile-name">M. Nom</div>
+        <div class="sub" id="profile-email">m.mail@email.com</div>
       </div>
 
       <nav class="account-tabs">
@@ -91,22 +91,25 @@
     <section class="account-content">
       <div class="field">
         <label>Nom complet</label>
-        <input type="text" value="M. Rakoto">
+        <input type="text" id="value-name">
       </div>
       <div class="field">
         <label>E-mail</label>
-        <input type="email" value="m.rakoto@email.com">
+        <input type="email" id="value-email">
       </div>
       <div class="field">
         <label>Téléphone</label>
-        <input type="tel" value="+261 34 00 000 00">
+        <input type="tel" id="value-tel">
       </div>
 
       <button class="btn-primary account-save">Enregistrer les modifications</button>
     </section>
   </div>
 </main>
-    <script src="js/profile-menu.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/profil.js"></script>
+    <script src="js/auth-status.js"></script>
+    <script src="js/profil-menu.js"></script></body>
 
 </html>

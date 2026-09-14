@@ -70,11 +70,11 @@
       </div>
       <div class="conv-list">
         <div class="msg-row active">
-          <div class="avatar">RA</div>
+          <div class="avatar" id="autre-avatar">RA</div>
           <div class="msg-info">
             <div class="top-line">
-              <span class="name">R. Andria</span>
-              <span class="time">09:41</span>
+              <span class="name" id="autre-name">R. Andria</span>
+              <span class="time" id="time">09:41</span>
             </div>
             <div class="preview">Je suis au relais nord, tout va bien</div>
           </div>
@@ -124,7 +124,10 @@
       </div>
     </section>
   </main>
-  <script src="js/profile-menu.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/profil.js"></script>
+    <script src="js/auth-status.js"></script>
+    <script src="js/profil-menu.js"></script></body>
 
 </html>

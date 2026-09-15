@@ -29,7 +29,7 @@ async function chargerMessages() {
         }
     });
 
-    const convList = document.querySelector('.conv-list');
+    const convList = document.getElementById('conv-list');
     convList.innerHTML = '';
 
     for(const autreId in conversations) {
@@ -92,6 +92,7 @@ async function ouvrirConversation(autreId, nom, monId) {
     `;
     document.querySelector('.chat-input').style.display = 'flex';
     const zoneMessages = document.querySelector('.chat-messages');
+    zoneMessages.innerHTML = '';
 
     msgs.forEach(msg => {
         const type = msg.sender_id === monId ? 'sent' : 'received';
@@ -131,3 +132,45 @@ async function envoyerMessage() {
 
 document.querySelector('.chat-input button').addEventListener('click', envoyerMessage);
 chargerMessages();
+
+async function afficherUtilisateurs() {
+    const { data: sessionData } = await supabase.auth.getSession();
+    const monId = sessionData.session.user.id;
+    const { data: profils, error } = await supabase
+        .from('profiles')   
+        .select('id, full_name')
+        .neq('id', monId);
+
+    if(error)
+    {
+        console.log("Erreur récupération utilisateurs :", error.message);
+        return;
+    }
+
+    const userList = document.getElementById('user-list');
+    userList.innerHTML = '';
+
+    profils.forEach(p => {
+        const nom = p.full_name || 'Utilisateur inconnu';
+        userList.innerHTML+= `
+            <div class="msg-row" data-id="${p.id}" data-nom="${p.full_name}">
+                <div class="avatar">${nom[0].toUpperCase()}</div>
+                <div class="msg-info"><span class="name">${p.full_name}</span></div>
+            </div>
+        `;
+    });
+
+    userList.querySelectorAll('.msg-row').forEach(ligne => {
+        ligne.addEventListener('click', () => {
+            const autreId = ligne.dataset.id;
+            const nom = ligne.dataset.nom;
+            ouvrirConversation(autreId, nom, monId);
+            userList.style.display = 'none';
+        });
+    });
+
+    userList.style.display = 'block';
+    chargerMessages();
+}
+
+document.getElementById('btn-nouveau').addEventListener('click', afficherUtilisateurs);

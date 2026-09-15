@@ -68,66 +68,27 @@
       <div class="panel-header">
         <h2>Messages</h2>
       </div>
-      <div class="conv-list">
-        <div class="msg-row active">
-          <div class="avatar" id="autre-avatar">RA</div>
-          <div class="msg-info">
-            <div class="top-line">
-              <span class="name" id="autre-name">R. Andria</span>
-              <span class="time" id="time">09:41</span>
-            </div>
-            <div class="preview">Je suis au relais nord, tout va bien</div>
-          </div>
-          <span class="unread"></span>
-        </div>
-        <div class="msg-row">
-          <div class="avatar">HR</div>
-          <div class="msg-info">
-            <div class="top-line">
-              <span class="name">H. Rasoa</span>
-              <span class="time">08:12</span>
-            </div>
-            <div class="preview">Message transmis via relais</div>
-          </div>
-        </div>
-        <div class="msg-row">
-          <div class="avatar">PN</div>
-          <div class="msg-info">
-            <div class="top-line">
-              <span class="name">Pylône Nord</span>
-              <span class="time">Hier</span>
-            </div>
-            <div class="preview">Connexion rétablie avec le réseau</div>
-          </div>
-        </div>
-      </div>
+      <div class="conv-list"></div>
     </aside>
 
     <!-- Colonne 2 : conversation active -->
     <section class="chat-panel">
-      <div class="chat-header">
-        <div class="avatar">RA</div>
-        <div>
-          <div class="name">R. Andria</div>
-          <div class="status">En ligne il y a 1 h</div>
-        </div>
-      </div>
+      <div class="chat-header"></div>
 
-      <div class="chat-messages">
-        <div class="bubble received">Salut, tout va bien de ton côté ?</div>
-        <div class="bubble sent">Oui, je suis au relais nord, tout va bien</div>
-      </div>
+      <div class="chat-messages"></div>
 
-      <div class="chat-input">
+      <div class="chat-input" style="display: none;">
         <input type="text" placeholder="Écrire un message...">
         <button>Envoyer</button>
       </div>
     </section>
   </main>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-    <script src="js/supabase-client.js"></script>
-    <script src="js/profil.js"></script>
-    <script src="js/auth-status.js"></script>
-    <script src="js/profil-menu.js"></script></body>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/profil.js"></script>
+  <script src="js/auth-status.js"></script>
+  <script src="js/profil-menu.js"></script>
+  <script src="js/messages.js"></script>
+</body>
 
 </html>

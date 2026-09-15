@@ -26,19 +26,23 @@ async function chargerProfil() {
     
     const bulle = document.getElementById('profileToggle');
     if (bulle) {
-        console.log(bulle);
         bulle.textContent = initiales;
     }
 
-    document.getElementById('profile-avatar').textContent = initiales;
-    document.getElementById('profile-name').textContent = profil.full_name;
-    document.getElementById('profile-email').textContent = profil.email;
+    const infoProfil = document.getElementById('profile-avatar');
+    if(infoProfil) {
 
+        document.getElementById('profile-avatar').textContent = initiales;
+        document.getElementById('profile-name').textContent = profil.full_name;
+        document.getElementById('profile-email').textContent = profil.email;
+    }
 
-    document.getElementById('value-name').value = profil.full_name;
-    document.getElementById('value-email').value = profil.email;
-    document.getElementById('value-tel').value = profil.phoneNumber;
-    
+    const formValue = document.getElementById('value-name');
+    if(formValue) {
+        document.getElementById('value-name').value = profil.full_name;
+        document.getElementById('value-email').value = profil.email;
+        document.getElementById('value-tel').value = profil.phoneNumber;
+    }
 }
 
 chargerProfil();
